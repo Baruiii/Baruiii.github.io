@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baruii — Roblox Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0b0b0e;
+      --bg2: #111115;
+      --bg3: #17171d;
+      --border: #222228;
+      --border2: #2e2e38;
+      --purple: #8b83e6;
+      --purple-dim: #5c56b0;
+      --purple-glow: #7f77dd22;
+      --text: #f0eeff;
+      --text2: #aaa;
+      --text3: #555;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 3rem 1.25rem 4rem;
+    }
+
+    /* HERO */
+    .hero {
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .hero-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(42px, 10vw, 68px);
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-name span {
+      color: var(--purple);
+    }
+
+    .hero-bio {
+      font-size: 16px;
+      color: var(--text2);
+      line-height: 1.75;
+      max-width: 520px;
+      margin-bottom: 1.5rem;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 99px;
+      background: var(--bg3);
+      color: var(--purple);
+      border: 0.5px solid var(--border2);
+      font-weight: 500;
+    }
+
+    /* DIVIDER */
+    .divider {
+      height: 0.5px;
+      background: var(--border);
+      margin: 2.5rem 0;
+    }
+
+    /* SECTION LABEL */
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text3);
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 2.5rem;
+    }
+
+    .skill-card {
+      background: var(--bg2);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .skill-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: var(--purple-glow);
+      border: 0.5px solid var(--purple-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .skill-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--purple);
+      fill: none;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .skill-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .skill-desc {
+      font-size: 12px;
+      color: var(--text3);
+      line-height: 1.5;
+    }
+
+    /* STATS */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 2.5rem;
+    }
+
+    .stat {
+      background: var(--bg2);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+    }
+
+    .stat-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .stat-val span {
+      color: var(--purple);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text3);
+    }
+
+    /* PRICING */
+    .pricing-block {
+      background: var(--bg2);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .pricing-left {}
+
+    .pricing-amount {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--purple);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .pricing-note {
+      font-size: 13px;
+      color: var(--text3);
+    }
+
+    .pricing-tag {
+      font-size: 12px;
+      padding: 6px 14px;
+      border-radius: 99px;
+      background: var(--purple-glow);
+      color: var(--purple);
+      border: 0.5px solid var(--purple-dim);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* CTA */
+    .cta-block {
+      background: var(--bg2);
+      border: 0.5px solid var(--border2);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      text-align: center;
+    }
+
+    .cta-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .cta-sub {
+      font-size: 14px;
+      color: var(--text3);
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--purple);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 28px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .cta-btn:hover {
+      background: #7468d4;
+      transform: translateY(-1px);
+    }
+
+    .cta-btn:active {
+      transform: translateY(0);
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text3);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 480px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="hero">
+      <div class="hero-eyebrow">Roblox Developer · Available for commissions</div>
+      <h1 class="hero-name">Baru<span>ii</span></h1>
+      <p class="hero-bio">
+        I've been developing on Roblox since 2021 — scripting in Luau, designing UI, building maps, creating UGC items, and modelling 3D assets. I'm 16, self-taught, and take every project seriously. Tell me what you need and I'll make it happen.
+      </p>
+      <div class="badge-row">
+        <span class="badge">Scripting / Luau</span>
+        <span class="badge">UI Design</span>
+        <span class="badge">3D Modeling</span>
+        <span class="badge">UGC Creation</span>
+        <span class="badge">Map Building</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-label">What I offer</div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">
+          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <div>
+          <div class="skill-name">Scripting & Luau</div>
+          <div class="skill-desc">Game systems, mechanics, and backend logic</div>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div>
+          <div class="skill-name">UI Design</div>
+          <div class="skill-desc">Menus, HUDs, and interface layouts</div>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <div class="skill-name">3D Modeling</div>
+          <div class="skill-desc">Custom assets and in-game models</div>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <div>
+          <div class="skill-name">UGC Creation</div>
+          <div class="skill-desc">Hats, accessories, and wearable items</div>
+        </div>
+      </div>
+      <div class="skill-card" style="grid-column: span 2;">
+        <div class="skill-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div>
+          <div class="skill-name">Map & Environment Building</div>
+          <div class="skill-desc">Full worlds, landscapes, and game environments</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-val">2021</div>
+        <div class="stat-label">On Roblox since</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val"><span>2</span>+ yrs</div>
+        <div class="stat-label">Scripting experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val"><span>5</span></div>
+        <div class="stat-label">Skill areas</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-label">Pricing</div>
+    <div class="pricing-block">
+      <div class="pricing-left">
+        <div class="pricing-amount">Robux only</div>
+        <div class="pricing-note">Rates vary by project — DM me with details for a quote.</div>
+      </div>
+      <div class="pricing-tag">Per project</div>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-heading">Let's build something</div>
+      <div class="cta-sub">Open to short and medium-term projects. I'll ask the right questions to deliver exactly what you need.</div>
+      <a href="https://www.roblox.com" class="cta-btn">Get in touch →</a>
+    </div>
+
+    <div class="footer">
+      © 2025 Baruii · Roblox Developer
+    </div>
+
+  </div>
+</body>
+</html>
