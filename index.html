@@ -7,7 +7,7 @@
   <title>Baruii — Roblox Developer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #0c001a;
@@ -25,34 +25,49 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: linear-gradient(135deg, #0c001a 0%, #1a0033 100%);
+      background: #0c001a;
       color: var(--text);
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
     }
-    body::before {
-      content: '';
+
+    /* Canvas background */
+    #bg-canvas {
       position: fixed;
       inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 50px 50px;
-      opacity: 0.08;
-      z-index: -1;
+      z-index: 0;
       pointer-events: none;
     }
+    .ripple {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      transform: translate(-50%, -50%) scale(0);
+      animation: rippleOut 0.7s ease-out forwards;
+    }
+    @keyframes rippleOut {
+      to { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+    }
+
+    .container, nav, footer {
+      position: relative;
+      z-index: 2;
+    }
+
     .container {
       max-width: 780px;
       margin: 0 auto;
       padding: 2rem 1.25rem 6rem;
     }
+
+    /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      background: rgba(12, 0, 26, 0.95);
+      background: rgba(12, 0, 26, 0.85);
       backdrop-filter: blur(16px);
       z-index: 100;
       border-bottom: 1px solid var(--border);
@@ -66,12 +81,15 @@
       align-items: center;
     }
     .nav-logo {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Syne', sans-serif;
       font-size: 22px;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: -0.03em;
     }
-    .nav-logo span { color: var(--purple-light); text-shadow: 0 0 15px var(--purple-glow); }
+    .nav-logo span {
+      color: var(--purple-light);
+      text-shadow: 0 0 18px var(--purple-glow);
+    }
     .nav-links {
       display: flex;
       gap: 2rem;
@@ -85,6 +103,8 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--purple-light); }
+
+    /* HERO */
     .hero {
       padding-top: 130px;
       text-align: center;
@@ -96,16 +116,16 @@
       letter-spacing: 0.15em;
       font-weight: 600;
       margin-bottom: 1rem;
-      text-shadow: 0 0 10px var(--purple-glow);
+      text-shadow: 0 0 12px var(--purple-glow);
     }
     .hero-name {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Syne', sans-serif;
       font-size: clamp(56px, 14vw, 88px);
-      font-weight: 700;
+      font-weight: 800;
       line-height: 1.05;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.04em;
       margin-bottom: 1.25rem;
-      text-shadow: 0 0 40px var(--purple-glow);
+      text-shadow: 0 0 50px var(--purple-glow);
     }
     .hero-name span { color: var(--purple-light); }
     .hero-bio {
@@ -125,7 +145,7 @@
     .badge {
       padding: 7px 16px;
       border-radius: 9999px;
-      background: rgba(192, 38, 211, 0.1);
+      background: rgba(192, 38, 211, 0.12);
       color: var(--purple-light);
       border: 1px solid var(--purple-glow);
       font-size: 13px;
@@ -141,12 +161,13 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 0 25px var(--purple-glow);
+      box-shadow: 0 0 28px var(--purple-glow);
       transition: all 0.3s;
+      font-family: 'Syne', sans-serif;
     }
     .btn-primary:hover {
       transform: translateY(-4px);
-      box-shadow: 0 0 40px var(--purple-glow);
+      box-shadow: 0 0 45px var(--purple-glow);
     }
     .btn-secondary {
       background: transparent;
@@ -162,29 +183,33 @@
       border-color: var(--purple-light);
       color: var(--purple-light);
     }
+
+    /* Cards */
     .stat, .skill-card, .project-card, .service-card, .tc-card, .pricing-block, .contact-block {
-      background: var(--bg2);
+      background: rgba(18, 0, 34, 0.75);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       transition: all 0.4s;
+      backdrop-filter: blur(8px);
     }
     .stat:hover, .skill-card:hover, .project-card:hover, .service-card:hover {
       border-color: var(--purple);
-      box-shadow: 0 0 30px var(--purple-glow);
+      box-shadow: 0 0 32px var(--purple-glow);
       transform: translateY(-6px);
     }
+
     .section-label {
       color: var(--purple-light);
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       font-size: 13px;
       text-transform: uppercase;
       margin-bottom: 0.75rem;
     }
     .section-title {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Syne', sans-serif;
       font-size: 32px;
-      font-weight: 700;
+      font-weight: 800;
       margin-bottom: 1.5rem;
       letter-spacing: -0.03em;
     }
@@ -193,78 +218,68 @@
       background: linear-gradient(90deg, transparent, var(--purple-glow), transparent);
       margin: 4rem 0;
     }
+
     /* Stats */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
-      margin-bottom: 1rem;
     }
     .stat {
       text-align: center;
       padding: 1.5rem 1rem;
     }
     .stat-number {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Syne', sans-serif;
       font-size: 28px;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--purple-light);
-      text-shadow: 0 0 15px var(--purple-glow);
+      text-shadow: 0 0 18px var(--purple-glow);
     }
     .stat-label {
       font-size: 13px;
       color: var(--text3);
       margin-top: 0.35rem;
     }
+
     /* Skills */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
     }
-    .skill-card {
-      padding: 1.4rem 1.5rem;
-    }
+    .skill-card { padding: 1.4rem 1.5rem; }
     .skill-card h3 {
       font-size: 16px;
       font-weight: 600;
       margin-bottom: 0.4rem;
-      color: var(--text);
+      font-family: 'Syne', sans-serif;
     }
     .skill-card p {
       font-size: 14px;
       color: var(--text3);
       line-height: 1.5;
     }
+
     /* Projects */
-    .projects-grid {
-      display: grid;
-      gap: 1.25rem;
-    }
-    .project-card {
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
+    .projects-grid { display: grid; gap: 1.25rem; }
+    .project-card { overflow: hidden; }
     .project-img {
       height: 180px;
-      background: linear-gradient(135deg, #1a0033, #3b0764);
+      background: linear-gradient(135deg, #1a0033, #4c1d95);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 48px;
       transition: transform 0.5s;
     }
-    .project-card:hover .project-img {
-      transform: scale(1.05);
-    }
-    .project-body {
-      padding: 1.4rem 1.5rem;
-    }
+    .project-card:hover .project-img { transform: scale(1.06); }
+    .project-body { padding: 1.4rem 1.5rem; }
     .project-body h3 {
       font-size: 18px;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 0.4rem;
+      font-family: 'Syne', sans-serif;
     }
     .project-body p {
       font-size: 14px;
@@ -281,34 +296,33 @@
       font-size: 12px;
       padding: 4px 10px;
       border-radius: 9999px;
-      background: rgba(192, 38, 211, 0.12);
+      background: rgba(192, 38, 211, 0.14);
       color: var(--purple-light);
-      border: 1px solid rgba(192, 38, 211, 0.25);
+      border: 1px solid rgba(192, 38, 211, 0.3);
     }
+
     /* Services */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
     }
-    .service-card {
-      padding: 1.5rem;
-    }
+    .service-card { padding: 1.5rem; }
     .service-card h3 {
       font-size: 17px;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 0.5rem;
       color: var(--purple-light);
+      font-family: 'Syne', sans-serif;
     }
     .service-card p {
       font-size: 14px;
       color: var(--text3);
       line-height: 1.55;
     }
+
     /* Pricing */
-    .pricing-block {
-      padding: 2rem;
-    }
+    .pricing-block { padding: 2rem; }
     .pricing-list {
       list-style: none;
       display: grid;
@@ -325,36 +339,35 @@
     .pricing-list li:last-child { border-bottom: none; padding-bottom: 0; }
     .price {
       color: var(--purple-light);
-      font-weight: 600;
-      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-family: 'Syne', sans-serif;
     }
+
     /* Terms */
-    .tc-grid {
-      display: grid;
-      gap: 1rem;
-    }
-    .tc-card {
-      padding: 1.3rem 1.5rem;
-    }
+    .tc-grid { display: grid; gap: 1rem; }
+    .tc-card { padding: 1.3rem 1.5rem; }
     .tc-card h3 {
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 0.35rem;
       color: var(--purple-light);
+      font-family: 'Syne', sans-serif;
     }
     .tc-card p {
       font-size: 14px;
       color: var(--text3);
       line-height: 1.5;
     }
+
     /* Contact */
     .contact-block {
       text-align: center;
       padding: 3rem 2rem;
     }
     .contact-block h2 {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Syne', sans-serif;
       font-size: 28px;
+      font-weight: 800;
       margin-bottom: 1rem;
     }
     .contact-block p {
@@ -375,25 +388,28 @@
       gap: 8px;
       padding: 12px 22px;
       border-radius: 9999px;
-      background: rgba(192, 38, 211, 0.12);
+      background: rgba(192, 38, 211, 0.14);
       border: 1px solid var(--purple-glow);
       color: var(--purple-light);
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 600;
       font-size: 14px;
       transition: all 0.3s;
+      font-family: 'Syne', sans-serif;
     }
     .social-btn:hover {
-      background: rgba(192, 38, 211, 0.25);
+      background: rgba(192, 38, 211, 0.28);
       transform: translateY(-3px);
-      box-shadow: 0 0 20px var(--purple-glow);
+      box-shadow: 0 0 22px var(--purple-glow);
     }
+
     footer {
       text-align: center;
       padding: 2rem 1rem 1rem;
       color: var(--text3);
       font-size: 13px;
     }
+
     @media (max-width: 640px) {
       .hero { padding-top: 110px; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
@@ -404,6 +420,8 @@
   </style>
 </head>
 <body>
+  <canvas id="bg-canvas"></canvas>
+
   <nav>
     <div class="nav-content">
       <div class="nav-logo">Baru<span>ii</span></div>
@@ -505,9 +523,7 @@
             <h3>Shadow Realms Combat</h3>
             <p>Full combat system with combos, abilities, hit detection, and polished VFX for a fantasy fighting experience.</p>
             <div class="project-tags">
-              <span>Luau</span>
-              <span>Combat</span>
-              <span>VFX</span>
+              <span>Luau</span><span>Combat</span><span>VFX</span>
             </div>
           </div>
         </div>
@@ -517,9 +533,7 @@
             <h3>Neon District RP Map</h3>
             <p>Cyberpunk-inspired city map with detailed interiors, dynamic lighting, and optimized for large player counts.</p>
             <div class="project-tags">
-              <span>Building</span>
-              <span>Lighting</span>
-              <span>Optimization</span>
+              <span>Building</span><span>Lighting</span><span>Optimization</span>
             </div>
           </div>
         </div>
@@ -529,9 +543,7 @@
             <h3>Inventory & Data System</h3>
             <p>Robust inventory with drag-and-drop UI, DataStore handling, and secure remote events.</p>
             <div class="project-tags">
-              <span>Luau</span>
-              <span>UI</span>
-              <span>DataStore</span>
+              <span>Luau</span><span>UI</span><span>DataStore</span>
             </div>
           </div>
         </div>
@@ -541,9 +553,7 @@
             <h3>UGC Accessory Pack</h3>
             <p>Series of stylized accessories uploaded and approved for the Avatar Marketplace.</p>
             <div class="project-tags">
-              <span>UGC</span>
-              <span>Modeling</span>
-              <span>Texturing</span>
+              <span>UGC</span><span>Modeling</span><span>Texturing</span>
             </div>
           </div>
         </div>
@@ -592,35 +602,14 @@
       <h2 class="section-title">Starting Prices</h2>
       <div class="pricing-block">
         <ul class="pricing-list">
-          <li>
-            <span>Simple Script / Feature</span>
-            <span class="price">$15 – $40</span>
-          </li>
-          <li>
-            <span>Complex System (Combat, Inventory, etc.)</span>
-            <span class="price">$50 – $150+</span>
-          </li>
-          <li>
-            <span>UI Design (per screen)</span>
-            <span class="price">$20 – $60</span>
-          </li>
-          <li>
-            <span>3D Model / Prop</span>
-            <span class="price">$15 – $80</span>
-          </li>
-          <li>
-            <span>Map / Environment</span>
-            <span class="price">$40 – $200+</span>
-          </li>
-          <li>
-            <span>UGC Accessory</span>
-            <span class="price">$25 – $70</span>
-          </li>
-          <li>
-            <span>Full Game Package</span>
-            <span class="price">Custom Quote</span>
-          </li>
-        </ul>
+  <li><span>Simple Script / Feature</span><span class="price"> 300 - 800</span></li>
+  <li><span>Complex System (Combat, Inventory, etc.)</span><span class="price"> 2K - 8K</span></li>
+  <li><span>UI Design (per screen)</span><span class="price"> 800 - 6K</span></li>
+  <li><span>3D Model / Prop</span><span class="price"> 500 - 4K</span></li>
+  <li><span>Map / Environment</span><span class="price"> 8K - 25K</span></li>
+  <li><span>UGC Accessory</span><span class="price"> 500 - 2K</span></li>
+  <li><span>Full Game Package</span><span class="price">Custom Quote</span></li>
+</ul>
         <p style="margin-top:1.25rem; font-size:13px; color:var(--text3); text-align:center;">
           Final price depends on complexity, revisions, and deadline. Always happy to discuss a fair quote.
         </p>
@@ -675,8 +664,198 @@
     </div>
   </div>
 
-  <footer>
-    © 2026 Baruii — Roblox Developer
-  </footer>
+  <footer>© 2026 Baruii — Roblox Developer</footer>
+
+  <script>
+    // ── ANIMATED BACKGROUND (purple theme) ──
+    (function () {
+      const canvas = document.getElementById('bg-canvas');
+      const ctx = canvas.getContext('2d');
+      let W, H, mouse = { x: -999, y: -999 };
+      let rafId = null;
+      let isVisible = true;
+
+      function resize() {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      // Stars
+      const STAR_COUNT = 180;
+      const stars = Array.from({ length: STAR_COUNT }, () => ({
+        x: Math.random() * 9999,
+        y: Math.random() * 9999,
+        r: Math.random() * 1.2 + 0.2,
+        a: Math.random()
+      }));
+
+      // Shooting stars
+      const shoots = [];
+      function spawnShoot() {
+        if (!isVisible) return;
+        const side = Math.random();
+        let x, y, angle;
+        if (side < 0.5) {
+          x = Math.random() * W; y = 0;
+          angle = Math.PI / 4 + (Math.random() - 0.5) * 0.4;
+        } else {
+          x = 0; y = Math.random() * H * 0.5;
+          angle = Math.PI / 6 + (Math.random() - 0.5) * 0.3;
+        }
+        shoots.push({
+          x, y,
+          vx: Math.cos(angle) * (5 + Math.random() * 6),
+          vy: Math.sin(angle) * (5 + Math.random() * 6),
+          len: 60 + Math.random() * 100,
+          life: 1,
+          decay: 0.016 + Math.random() * 0.02,
+          color: Math.random() < 0.45 ? '#e879f9' : Math.random() < 0.5 ? '#c026d3' : '#ffffff'
+        });
+      }
+      setInterval(spawnShoot, 1100);
+      for (let i = 0; i < 3; i++) setTimeout(spawnShoot, i * 280);
+
+      // Mouse particles
+      const particles = [];
+      const MAX_PARTICLES = 45;
+      let lastMX = -999, lastMY = -999;
+      window.addEventListener('mousemove', e => {
+        mouse.x = e.clientX; mouse.y = e.clientY;
+        const dx = mouse.x - lastMX, dy = mouse.y - lastMY;
+        const speed = Math.sqrt(dx * dx + dy * dy);
+        if (speed > 5 && particles.length < MAX_PARTICLES) {
+          const count = Math.min(Math.floor(speed / 8), 3);
+          for (let i = 0; i < count; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const spd = Math.random() * 1.5 + 0.4;
+            particles.push({
+              x: mouse.x, y: mouse.y,
+              vx: Math.cos(angle) * spd,
+              vy: Math.sin(angle) * spd - 0.4,
+              life: 1,
+              decay: 0.038 + Math.random() * 0.04,
+              r: Math.random() * 2.2 + 0.5,
+              color: ['#c026d3', '#e879f9', '#a855f7', '#d946ef'][Math.floor(Math.random() * 4)]
+            });
+          }
+        }
+        lastMX = mouse.x; lastMY = mouse.y;
+      });
+
+      let glowAlpha = 0;
+      window.addEventListener('mousemove', () => { glowAlpha = 1; });
+
+      // Click ripple
+      window.addEventListener('click', e => {
+        const el = document.createElement('div');
+        el.className = 'ripple';
+        const size = 140 + Math.random() * 60;
+        el.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;width:${size}px;height:${size}px;border:2px solid rgba(192,38,211,0.55);box-shadow:0 0 12px rgba(192,38,211,0.3);`;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 700);
+      });
+
+      // Pause when tab hidden
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          isVisible = false;
+          if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+          particles.length = 0;
+          shoots.length = 0;
+        } else {
+          isVisible = true;
+          lastMX = -999; lastMY = -999;
+          glowAlpha = 0;
+          if (!rafId) draw();
+        }
+      });
+
+      let t = 0;
+      let lastTime = 0;
+      function draw(ts) {
+        if (!isVisible) return;
+        rafId = requestAnimationFrame(draw);
+        const dt = ts ? Math.min(ts - lastTime, 50) : 16;
+        lastTime = ts || 0;
+
+        ctx.clearRect(0, 0, W, H);
+
+        // Deep purple gradient
+        const bg = ctx.createRadialGradient(W * 0.5, 0, 0, W * 0.5, H * 0.4, H);
+        bg.addColorStop(0, '#1a0033');
+        bg.addColorStop(0.45, '#120022');
+        bg.addColorStop(1, '#0c001a');
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        // Twinkling stars
+        t += 0.006;
+        stars.forEach(s => {
+          const twinkle = s.a + Math.sin(t * 1.5 + s.x) * 0.35;
+          ctx.globalAlpha = Math.max(0.08, Math.min(0.9, twinkle));
+          ctx.fillStyle = '#ffffff';
+          ctx.beginPath();
+          ctx.arc(s.x % W, s.y % H, s.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        ctx.globalAlpha = 1;
+
+        // Shooting stars
+        for (let i = shoots.length - 1; i >= 0; i--) {
+          const s = shoots[i];
+          const spd = Math.sqrt(s.vx * s.vx + s.vy * s.vy);
+          const tailX = s.x - s.vx * (s.len / spd);
+          const tailY = s.y - s.vy * (s.len / spd);
+          const grad = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
+          grad.addColorStop(0, 'rgba(0,0,0,0)');
+          const rgb = s.color === '#ffffff' ? '255,255,255' : s.color === '#e879f9' ? '232,121,249' : '192,38,211';
+          grad.addColorStop(1, `rgba(${rgb},${s.life})`);
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = 1.6 * s.life;
+          ctx.shadowColor = s.color;
+          ctx.shadowBlur = 10 * s.life;
+          ctx.beginPath(); ctx.moveTo(tailX, tailY); ctx.lineTo(s.x, s.y); ctx.stroke();
+          ctx.shadowBlur = 0;
+          ctx.globalAlpha = s.life * 0.85;
+          const hg = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, 4);
+          hg.addColorStop(0, '#ffffff'); hg.addColorStop(1, 'transparent');
+          ctx.fillStyle = hg;
+          ctx.beginPath(); ctx.arc(s.x, s.y, 4 * s.life, 0, Math.PI * 2); ctx.fill();
+          ctx.globalAlpha = 1;
+          s.x += s.vx; s.y += s.vy; s.life -= s.decay;
+          if (s.life <= 0 || s.x > W + 200 || s.y > H + 200) shoots.splice(i, 1);
+        }
+
+        // Mouse glow
+        if (mouse.x > 0) {
+          glowAlpha *= 0.94;
+          if (glowAlpha > 0.01) {
+            const mg = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 110);
+            mg.addColorStop(0, `rgba(192,38,211,${glowAlpha * 0.16})`);
+            mg.addColorStop(0.5, `rgba(192,38,211,${glowAlpha * 0.06})`);
+            mg.addColorStop(1, 'transparent');
+            ctx.fillStyle = mg;
+            ctx.beginPath(); ctx.arc(mouse.x, mouse.y, 110, 0, Math.PI * 2); ctx.fill();
+          }
+        }
+
+        // Mouse trail particles
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          ctx.globalAlpha = p.life * 0.8;
+          ctx.shadowColor = p.color; ctx.shadowBlur = 7;
+          ctx.fillStyle = p.color;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r * p.life, 0, Math.PI * 2); ctx.fill();
+          ctx.shadowBlur = 0;
+          p.x += p.vx; p.y += p.vy; p.vy += 0.05; p.life -= p.decay;
+          if (p.life <= 0) particles.splice(i, 1);
+        }
+        ctx.globalAlpha = 1;
+      }
+      draw();
+    })();
+  </script>
 </body>
 </html>
