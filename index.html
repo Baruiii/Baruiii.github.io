@@ -27,13 +27,11 @@
     body {
       background: #0c001a;
       color: var(--text);
-      font-family: 'JetBrains Mono', monospace;
+      font-family: 'Inter', system-ui, sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
     }
-
-    /* Canvas background */
     #bg-canvas {
       position: fixed;
       inset: 0;
@@ -51,18 +49,15 @@
     @keyframes rippleOut {
       to { transform: translate(-50%, -50%) scale(1); opacity: 0; }
     }
-
     .container, nav, footer {
       position: relative;
       z-index: 2;
     }
-
     .container {
       max-width: 780px;
       margin: 0 auto;
       padding: 2rem 1.25rem 6rem;
     }
-
     /* NAV */
     nav {
       position: fixed;
@@ -83,7 +78,6 @@
     .nav-logo {
       font-family: 'Archivo Black', sans-serif;
       font-size: 22px;
-      font-weight: 800;
       letter-spacing: -0.03em;
     }
     .nav-logo span {
@@ -103,7 +97,6 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--purple-light); }
-
     /* HERO */
     .hero {
       padding-top: 130px;
@@ -121,13 +114,20 @@
     .hero-name {
       font-family: 'Archivo Black', sans-serif;
       font-size: clamp(56px, 14vw, 88px);
-      font-weight: 800;
       line-height: 1.05;
       letter-spacing: -0.04em;
       margin-bottom: 1.25rem;
       text-shadow: 0 0 50px var(--purple-glow);
+      min-height: 1.1em;
     }
-    .hero-name span { color: var(--purple-light); }
+    .cursor {
+      color: var(--purple-light);
+      animation: blink 0.7s step-end infinite;
+      margin-left: 2px;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
     .hero-bio {
       font-size: 17.5px;
       color: var(--text2);
@@ -183,7 +183,6 @@
       border-color: var(--purple-light);
       color: var(--purple-light);
     }
-
     /* Cards */
     .stat, .skill-card, .project-card, .service-card, .tc-card, .pricing-block, .contact-block {
       background: rgba(18, 0, 34, 0.75);
@@ -197,7 +196,6 @@
       box-shadow: 0 0 32px var(--purple-glow);
       transform: translateY(-6px);
     }
-
     .section-label {
       color: var(--purple-light);
       font-weight: 600;
@@ -209,7 +207,6 @@
     .section-title {
       font-family: 'Archivo Black', sans-serif;
       font-size: 32px;
-      font-weight: 800;
       margin-bottom: 1.5rem;
       letter-spacing: -0.03em;
     }
@@ -218,7 +215,6 @@
       background: linear-gradient(90deg, transparent, var(--purple-glow), transparent);
       margin: 4rem 0;
     }
-
     /* Stats */
     .stats-grid {
       display: grid;
@@ -232,7 +228,6 @@
     .stat-number {
       font-family: 'Archivo Black', sans-serif;
       font-size: 28px;
-      font-weight: 800;
       color: var(--purple-light);
       text-shadow: 0 0 18px var(--purple-glow);
     }
@@ -241,7 +236,6 @@
       color: var(--text3);
       margin-top: 0.35rem;
     }
-
     /* Skills */
     .skills-grid {
       display: grid;
@@ -260,7 +254,6 @@
       color: var(--text3);
       line-height: 1.5;
     }
-
     /* Projects */
     .projects-grid { display: grid; gap: 1.25rem; }
     .project-card { overflow: hidden; }
@@ -300,7 +293,6 @@
       color: var(--purple-light);
       border: 1px solid rgba(192, 38, 211, 0.3);
     }
-
     /* Services */
     .services-grid {
       display: grid;
@@ -320,7 +312,6 @@
       color: var(--text3);
       line-height: 1.55;
     }
-
     /* Pricing */
     .pricing-block { padding: 2rem; }
     .pricing-list {
@@ -342,7 +333,6 @@
       font-weight: 700;
       font-family: 'Archivo Black', sans-serif;
     }
-
     /* Terms */
     .tc-grid { display: grid; gap: 1rem; }
     .tc-card { padding: 1.3rem 1.5rem; }
@@ -358,7 +348,6 @@
       color: var(--text3);
       line-height: 1.5;
     }
-
     /* Contact */
     .contact-block {
       text-align: center;
@@ -367,7 +356,6 @@
     .contact-block h2 {
       font-family: 'Archivo Black', sans-serif;
       font-size: 28px;
-      font-weight: 800;
       margin-bottom: 1rem;
     }
     .contact-block p {
@@ -402,14 +390,12 @@
       transform: translateY(-3px);
       box-shadow: 0 0 22px var(--purple-glow);
     }
-
     footer {
       text-align: center;
       padding: 2rem 1rem 1rem;
       color: var(--text3);
       font-size: 13px;
     }
-
     @media (max-width: 640px) {
       .hero { padding-top: 110px; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
@@ -421,7 +407,6 @@
 </head>
 <body>
   <canvas id="bg-canvas"></canvas>
-
   <nav>
     <div class="nav-content">
       <div class="nav-logo">Baru<span>ii</span></div>
@@ -433,7 +418,6 @@
       </ul>
     </div>
   </nav>
-
   <div class="container">
     <!-- HERO -->
     <div class="hero">
@@ -455,7 +439,6 @@
         <a href="#projects" class="btn-secondary">View My Work</a>
       </div>
     </div>
-
     <!-- STATS -->
     <div class="stats-grid">
       <div class="stat">
@@ -475,9 +458,7 @@
         <div class="stat-label">Client Satisfaction</div>
       </div>
     </div>
-
     <div class="divider"></div>
-
     <!-- SKILLS -->
     <div>
       <div class="section-label">What I Do</div>
@@ -509,9 +490,7 @@
         </div>
       </div>
     </div>
-
     <div class="divider" id="projects"></div>
-
     <!-- PROJECTS -->
     <div>
       <div class="section-label">Selected Work</div>
@@ -559,9 +538,7 @@
         </div>
       </div>
     </div>
-
     <div class="divider" id="services"></div>
-
     <!-- SERVICES -->
     <div>
       <div class="section-label">Commissions</div>
@@ -593,31 +570,27 @@
         </div>
       </div>
     </div>
-
     <div class="divider" id="pricing"></div>
-
     <!-- PRICING -->
     <div>
       <div class="section-label">Rates</div>
       <h2 class="section-title">Starting Prices</h2>
       <div class="pricing-block">
-       <ul class="pricing-list">
-  <li><span>Simple Script / Feature</span><span class="price">R$ 300 - 800</span></li>
-  <li><span>Complex System (Combat, Inventory, etc.)</span><span class="price">R$ 2K - 8K</span></li>
-  <li><span>UI Design (per screen)</span><span class="price">R$ 800 - 6K</span></li>
-  <li><span>3D Model / Prop</span><span class="price">R$ 500 - 4K</span></li>
-  <li><span>Map / Environment</span><span class="price">R$ 8K - 25K</span></li>
-  <li><span>UGC Accessory</span><span class="price">R$ 500 - 2K</span></li>
-  <li><span>Full Game Package</span><span class="price">Custom Quote</span></li>
-</ul>
+        <ul class="pricing-list">
+          <li><span>Simple Script / Feature</span><span class="price">R$ 300 - 800</span></li>
+          <li><span>Complex System (Combat, Inventory, etc.)</span><span class="price">R$ 2K - 8K</span></li>
+          <li><span>UI Design (per screen)</span><span class="price">R$ 800 - 6K</span></li>
+          <li><span>3D Model / Prop</span><span class="price">R$ 500 - 4K</span></li>
+          <li><span>Map / Environment</span><span class="price">R$ 8K - 25K</span></li>
+          <li><span>UGC Accessory</span><span class="price">R$ 500 - 2K</span></li>
+          <li><span>Full Game Package</span><span class="price">Custom Quote</span></li>
+        </ul>
         <p style="margin-top:1.25rem; font-size:13px; color:var(--text3); text-align:center;">
           Final price depends on complexity, revisions, and deadline. Always happy to discuss a fair quote.
         </p>
       </div>
     </div>
-
     <div class="divider"></div>
-
     <!-- TERMS -->
     <div>
       <div class="section-label">Important</div>
@@ -649,9 +622,7 @@
         </div>
       </div>
     </div>
-
     <div class="divider" id="contact"></div>
-
     <!-- CONTACT -->
     <div class="contact-block">
       <h2>Let's Build Something Epic</h2>
@@ -663,11 +634,54 @@
       </div>
     </div>
   </div>
-
   <footer>© 2026 Baruii — Roblox Developer</footer>
-
   <script>
-    // ── ANIMATED BACKGROUND (purple theme) ──
+    // ── TYPEWRITER + BACKSPACE ──
+    (function () {
+      const el = document.getElementById('typewriter');
+      if (!el) return;
+
+      const phrases = [
+        'Baruii',
+        'Developer',
+        'Scripter',
+        'Builder',
+        'Baruii'
+      ];
+
+      let phraseIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+
+      function type() {
+        const current = phrases[phraseIndex];
+
+        if (isDeleting) {
+          el.textContent = current.substring(0, charIndex - 1);
+          charIndex--;
+        } else {
+          el.textContent = current.substring(0, charIndex + 1);
+          charIndex++;
+        }
+
+        let speed = isDeleting ? 45 : 90;
+
+        if (!isDeleting && charIndex === current.length) {
+          speed = 1800;
+          isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          speed = 400;
+        }
+
+        setTimeout(type, speed);
+      }
+
+      type();
+    })();
+
+    // ── ANIMATED BACKGROUND ──
     (function () {
       const canvas = document.getElementById('bg-canvas');
       const ctx = canvas.getContext('2d');
@@ -682,7 +696,6 @@
       resize();
       window.addEventListener('resize', resize);
 
-      // Stars
       const STAR_COUNT = 180;
       const stars = Array.from({ length: STAR_COUNT }, () => ({
         x: Math.random() * 9999,
@@ -691,7 +704,6 @@
         a: Math.random()
       }));
 
-      // Shooting stars
       const shoots = [];
       function spawnShoot() {
         if (!isVisible) return;
@@ -717,7 +729,6 @@
       setInterval(spawnShoot, 1100);
       for (let i = 0; i < 3; i++) setTimeout(spawnShoot, i * 280);
 
-      // Mouse particles
       const particles = [];
       const MAX_PARTICLES = 45;
       let lastMX = -999, lastMY = -999;
@@ -747,7 +758,6 @@
       let glowAlpha = 0;
       window.addEventListener('mousemove', () => { glowAlpha = 1; });
 
-      // Click ripple
       window.addEventListener('click', e => {
         const el = document.createElement('div');
         el.className = 'ripple';
@@ -757,7 +767,6 @@
         setTimeout(() => el.remove(), 700);
       });
 
-      // Pause when tab hidden
       document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
           isVisible = false;
@@ -777,12 +786,9 @@
       function draw(ts) {
         if (!isVisible) return;
         rafId = requestAnimationFrame(draw);
-        const dt = ts ? Math.min(ts - lastTime, 50) : 16;
         lastTime = ts || 0;
-
         ctx.clearRect(0, 0, W, H);
 
-        // Deep purple gradient
         const bg = ctx.createRadialGradient(W * 0.5, 0, 0, W * 0.5, H * 0.4, H);
         bg.addColorStop(0, '#1a0033');
         bg.addColorStop(0.45, '#120022');
@@ -790,7 +796,6 @@
         ctx.fillStyle = bg;
         ctx.fillRect(0, 0, W, H);
 
-        // Twinkling stars
         t += 0.006;
         stars.forEach(s => {
           const twinkle = s.a + Math.sin(t * 1.5 + s.x) * 0.35;
@@ -802,7 +807,6 @@
         });
         ctx.globalAlpha = 1;
 
-        // Shooting stars
         for (let i = shoots.length - 1; i >= 0; i--) {
           const s = shoots[i];
           const spd = Math.sqrt(s.vx * s.vx + s.vy * s.vy);
@@ -828,7 +832,6 @@
           if (s.life <= 0 || s.x > W + 200 || s.y > H + 200) shoots.splice(i, 1);
         }
 
-        // Mouse glow
         if (mouse.x > 0) {
           glowAlpha *= 0.94;
           if (glowAlpha > 0.01) {
@@ -841,7 +844,6 @@
           }
         }
 
-        // Mouse trail particles
         for (let i = particles.length - 1; i >= 0; i--) {
           const p = particles[i];
           ctx.globalAlpha = p.life * 0.8;
